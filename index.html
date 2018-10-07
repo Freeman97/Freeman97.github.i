@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chatroom Demo</title>
+    <style>
+        html
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            top: 0;
+            left: 0;
+        }
+        body
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            top: 0;
+            left: 0;
+        }
+        #chat-box
+        {
+            position: absolute;
+            width: 100%;
+            margin: 0;
+            height: 100%;
+            background-image: url("./image/1-01-compressed.jpg");
+            background-position: center;
+            background-size: cover;
+        }
+        #chat-title
+        {
+            width: 100%;
+            top: 0;
+            left: 0;
+            margin: 0;
+            height: 5%;
+            background-color: rgb(10, 10, 10);
+            vertical-align: middle;
+        }
+        #chat-title:before{
+            margin-left: 3vw;
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+        #title-text
+        {
+            color: whitesmoke;
+            margin: 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        #chat-container
+        {
+            width: 100%;
+            height: 65%;
+            overflow: scroll;
+        }
+        #input-box
+        {
+            display: none;
+            width: 100%;
+            height: 30%;
+        }
+        .l-box, .r-box
+        {
+            width: 100%;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+        .r-box2
+        {
+            width: 50vw;
+            margin-left: 30vw;
+            margin-right: 0;
+            display: inline-block;
+        }
+        .l-message
+        {
+            opacity: 0;
+            max-width: 50vw;
+            margin-left: 2vw;
+            margin-bottom: 0;
+            margin-top: 2vw;
+            display: inline-block;
+            vertical-align: top;
+            word-break: break-all;
+            background-color: whitesmoke;
+            padding: 3vw;
+            border-radius: 2vw;
+        }
+        .r-message
+        {   
+            opacity: 0;
+            float: right;
+            max-width: 50vw;
+            margin-top: 2vw;
+            margin-bottom: 0;
+            display: inline-block;
+            vertical-align: top;
+            word-break: break-all;
+            background-color: rgb(143, 226, 144);
+            padding: 3vw;
+            border-radius: 2vw;
+        }
+        .l-icon, .r-icon
+        {
+            opacity: 0;
+            width: 15vw;
+            height: 15vw;
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 0;
+        }
+        .l-icon
+        {
+            margin-left: 2vw;
+            background-image: url("./image/doy.png");
+            background-position: center;
+            background-size: cover;
+        }
+        .r-icon
+        {
+            margin-left: 2vw;
+            background-color: azure;
+        }
+        #start-btn, #more-btn
+        {
+            display: none;
+            width: 40vw;
+            height: 15.67vw;
+            margin-top: 5%;
+            margin-left: 30vw;
+            background-image: url("./image/choicebutton@2x.png");
+            background-position: center;
+            background-size: cover;
+            border: none;
+            background-color: transparent;
+        }
+        .choice-box
+        {
+            display: inline-block;
+            width: 40vw;
+            height: 80%;
+        }
+        #choiceBox-a
+        {
+            margin-left: 5vw;
+        }
+        #choiceBox-b
+        {
+            float: right;
+            margin-right: 5vw;
+        }
+        #choiceImage-a, #choiceImage-b
+        {
+            width: 80%;
+            min-height: 70%;
+            margin-bottom: 5%;
+            margin-top: 5%;
+            margin-left: 10%;
+            margin-right: 0;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .choice-btn
+        {
+            margin-left: 10vw;
+            width: 20vw;
+            height: 7.84vw;
+            background-image: url("./image/choicebutton.png");
+            background-position: center;
+            background-size: cover;
+            display: inline-block;
+            border: none;
+            background-color: transparent;
+        }
+        #cover
+        {
+            position: absolute;
+            z-index: 9;
+            height: 95%;
+            width: 100%;
+            top: 5%;
+            left: 0;
+            background-color: grey;
+            opacity: 0.7;
+            display: none;
+        }
+        .more-page
+        {
+            height: 80%;
+            width: 80%;
+            position: absolute;
+            z-index: 10;
+            top: 10%;
+            left: 10%;
+            border: none;
+            display: none
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-box">
+        <div id="chat-title">
+            <p id="title-text">BBT梯仔</p>
+        </div>
+        <div id="chat-container">
+
+        </div>
+        <button id="start-btn">测试一下</button>
+        <div id="input-box">
+            <div class="choice-box" id="choiceBox-a"><div id="choiceImage-a"></div><button class="choice-btn" id="choice-a"><span>A选项</span></button></div>
+            <div class="choice-box" id="choiceBox-b"><div id="choiceImage-b"></div><button class="choice-btn" id="choice-b"><span>B选项</span></button></div>
+        </div>
+        <button id="more-btn">了解更多</button>
+        <div id="cover">
+        </div>
+        <iframe scrolling="yes" name="more-page" class="more-page"></iframe>
+    </div>
+</body>
+<script src="./js/jquery-1.7.1.min.js"></script>
+<script src="./js/chatDemo.js"></script>
+<script>
+    var lmessage = [];
+    var rmessage = [];
+    var text2 = "defg";
+    var introText = ["盆友你好呀~", "你知道什么是百团大战吗？", "百团大战的介绍：blablablablablablablablablabablablbalab", "什么样的社团适合你呢", "来测试一个吧~"];
+    var testQuiz = [
+        {
+            qText: "以下两位知名人物请问你认识哪一位？",
+            aText: "龙女士",
+            bText: "富野大光头",
+            aImg: "./image/A.jpg",
+            bImg: "./image/B.jpg",
+            aRText: "你舍得打破这份宁静吗？",
+            bRText: "看来你觉得你比我懂高达？"
+        },
+        {
+            qText: "测试题测试测试测试测试测试测试测试测试测试测试测试测试测试",
+            aText: "A选项A选项A选项A选项A选项A选项",
+            bText: "B选项B选项B选项B选项B选项B选项",
+            aImg: "./image/A.jpg",
+            bImg: "./image/B.jpg",
+            aRText: "这里有mom的气息",
+            bRText: "V高达是一部温暖人心的作品"
+        },
+        {
+            qText: "你同意雷亚游戏世界主宰，CytusDeemo宇宙神作吗",
+            aText: "EVANS多少分啊吵",
+            bText: "这歌真好听，osu里的",
+            aImg: "",
+            bImg: "",
+            aRText: "KONMAI QUALITY",
+            bRText: "8012年了还屙"
+        }
+    ];
+    var resultText = "这么喜欢龙图，你应该加入ZACA音游组本质龙图群。群号1145141919810";
+    var el = $("#chat-container");
+    var container = new container(el, 10);
+    function showMore()
+    {
+        $("#cover").fadeIn()
+        $(".more-page").fadeIn();
+    }
+    function showResult(a)
+    {
+        /*
+            a: 测试结果分析文本
+        */
+        container.addMessage(new messageBox(a, "l"));
+        container.showMessage("l", 0, 0, 0);
+        $("#input-box").fadeOut(1000, 
+            function()
+            {
+                $("#more-btn").fadeIn(1000);
+            }
+        );
+    }
+    function quiz(b, i, j)
+    {
+        /*
+            quiz: 测试题队列
+                测试题的组织方式:
+                {
+                    qText: 题干文本
+                    aText: A选项文本
+                    bText: B选项文本
+                    aImg: A选项配图url
+                    bImg: B选项配图url
+                    aRtext: A选项选择后的回复文本
+                    bRtext: B选项选择后的回复文本
+                }
+        */
+        if(i > j)
+        {
+            setTimeout(
+                function()
+                {
+                    showResult(resultText);
+                }, 1000
+            )
+            return;
+        }
+        var a = b[i];
+        var _this = this;
+        console.log(_this);
+        var text = a.qText + "<br/>A. " + a.aText + "<br/>B. " + a.bText;
+        var quiz = new messageBox(text, "l");
+        container.addMessage(quiz, "l");
+        container.showMessage("l", 0, 0, 0);
+        $("#choiceImage-a").css({"background-image": "url(" + a.aImg + ")"});
+        $("#choiceImage-b").css({"background-image": "url(" + a.bImg + ")"});
+        $("#choice-a").click(
+            function()
+            {
+                container.addMessage(new messageBox("A选项", "r"));
+                container.showMessage("r", 0, 0, 0);
+                container.addMessage(new messageBox(a.aRText, "l"));
+                setTimeout(
+                    function()
+                    {
+                        container.showMessage("l", 0, 0, 0);
+                    }, 1000
+                );
+                $(".choice-btn").unbind("click");
+                setTimeout(
+                    function()
+                    {
+                        _this.quiz(b, i + 1, j);
+                    }, 2000
+                );
+            }
+        );
+        $("#choice-b").click(
+            function()
+            {
+                container.addMessage(new messageBox("B选项", "r"));
+                container.showMessage("r", 0, 0, 0);
+                container.addMessage(new messageBox(a.bRText, "l"));
+                setTimeout(
+                    function()
+                    {
+                        container.showMessage("l", 0, 0, 0);
+                    }, 1000
+                );
+                $(".choice-btn").unbind("click");
+                setTimeout(
+                    function()
+                    {
+                        _this.quiz(b, i + 1, j);
+                    }, 2000
+                );
+            }
+        )
+    }
+    window.onload = function()
+    {
+        $("#start-btn").click(
+            function()
+            {
+                $("#start-btn").hide();
+                $("#input-box").fadeIn();
+                quiz(testQuiz, 0, 2);
+            }
+        );
+        $("#more-btn").click(
+            function()
+            {
+                var moreMessage = [];
+                var moreText = ["<a>点击了解【学术实践类】</a>", "<a>点击了解【文娱体育类】</a>", "<a href='./iframe/socialServiceSouth.html' target='more-page' onclick='showMore()'>点击了解【社会服务类】</a>"];
+                for(var i = 0; i < moreText.length; i++)
+                {
+                    moreMessage[i] = new messageBox(moreText[i], "l");
+                    console.log(moreMessage);
+                    container.addMessage(moreMessage[i], "l");
+                }
+                console.log(container.lMessage);
+                container.showMessage("l", 0, 2, 500);
+                $("#more-btn").unbind("click");
+            }
+        )
+        $("#cover").click(
+            function()
+            {
+                $("#cover").fadeOut();
+                $(".more-page").fadeOut();
+            }
+        )
+        for(var i = 0; i < introText.length; i++)
+        {
+            lmessage[i] = new messageBox(introText[i], "l");
+            container.addMessage(lmessage[i], "l");
+        }
+        console.log(lmessage);
+        console.log(container.lMessage);
+        container.showMessage("l", 0, 4, 2000,
+            function()
+            {
+                $("#start-btn").fadeIn(1000);
+            }
+        );
+    }
+</script>
+</html>
