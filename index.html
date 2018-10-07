@@ -63,7 +63,7 @@
             height: 65%;
             overflow: scroll;
         }
-        #input-box
+        #input-box, #input-box2
         {
             display: none;
             width: 100%;
@@ -148,19 +148,32 @@
         .choice-box
         {
             display: inline-block;
-            width: 40vw;
+            width: 30%;
             height: 80%;
         }
         #choiceBox-a
         {
-            margin-left: 5vw;
+            margin-left: 2.5%;
+        }
+        #choiceBox-c
+        {
+            float: right;
+            margin-right: 2.5%;
         }
         #choiceBox-b
         {
-            float: right;
-            margin-right: 5vw;
+            margin-left: 2.5%;
         }
-        #choiceImage-a, #choiceImage-b
+        #choiceBox-a2
+        {
+            margin-left: 15%;
+        }
+        #choiceBox-b2
+        {
+            float: right;
+            margin-right: 15%;
+        }
+        .choiceImage-a, .choiceImage-b, .choiceImage-c
         {
             width: 80%;
             min-height: 70%;
@@ -174,7 +187,7 @@
         }
         .choice-btn
         {
-            margin-left: 10vw;
+            margin-left: 5vw;
             width: 20vw;
             height: 7.84vw;
             background-image: url("./image/choicebutton.png");
@@ -219,8 +232,13 @@
         </div>
         <button id="start-btn">测试一下</button>
         <div id="input-box">
-            <div class="choice-box" id="choiceBox-a"><div id="choiceImage-a"></div><button class="choice-btn" id="choice-a"><span>A选项</span></button></div>
-            <div class="choice-box" id="choiceBox-b"><div id="choiceImage-b"></div><button class="choice-btn" id="choice-b"><span>B选项</span></button></div>
+            <div class="choice-box" id="choiceBox-a"><div class="choiceImage-a"></div><button class="choice-btn choice-a"><span>A选项</span></button></div>
+            <div class="choice-box" id="choiceBox-b"><div class="choiceImage-b"></div><button class="choice-btn choice-b"><span>B选项</span></button></div>
+            <div class="choice-box" id="choiceBox-c"><div class="choiceImage-c"></div><button class="choice-btn choice-c"><span>C选项</span></button></div>
+        </div>
+        <div id="input-box2">
+            <div class="choice-box" id="choiceBox-a2"><div class="choiceImage-a"></div><button class="choice-btn choice-a"><span>A选项</span></button></div>
+            <div class="choice-box" id="choiceBox-b2"><div class="choiceImage-b"></div><button class="choice-btn choice-b"><span>B选项</span></button></div>
         </div>
         <button id="more-btn">了解更多</button>
         <div id="cover">
@@ -238,30 +256,21 @@
     var testQuiz = [
         {
             qText: "以下两位知名人物请问你认识哪一位？",
-            aText: "龙女士",
-            bText: "富野大光头",
-            aImg: "./image/A.jpg",
-            bImg: "./image/B.jpg",
-            aRText: "你舍得打破这份宁静吗？",
-            bRText: "看来你觉得你比我懂高达？"
+            choiceText: ["龙女士", "富野大光头"],
+            img: ["./image/A.jpg", "./image/B.jpg"],
+            choiceRText: ["你舍得打破这份宁静吗？", "看来你觉得你比我懂高达？"]
         },
         {
             qText: "测试题测试测试测试测试测试测试测试测试测试测试测试测试测试",
-            aText: "A选项A选项A选项A选项A选项A选项",
-            bText: "B选项B选项B选项B选项B选项B选项",
-            aImg: "./image/A.jpg",
-            bImg: "./image/B.jpg",
-            aRText: "这里有mom的气息",
-            bRText: "V高达是一部温暖人心的作品"
+            choiceText: ["A选项A选项A选项A选项A选项A选项", "B选项B选项B选项B选项B选项B选项", "CCCCCCCCCCCCCCCCCC"],
+            img: ["./image/A.jpg", "./image/B.jpg", ""],
+            choiceRText: ["这里有mom的气息", "V高达是一部温暖人心的作品", "丢那星"]
         },
         {
             qText: "你同意雷亚游戏世界主宰，CytusDeemo宇宙神作吗",
-            aText: "EVANS多少分啊吵",
-            bText: "这歌真好听，osu里的",
-            aImg: "",
-            bImg: "",
-            aRText: "KONMAI QUALITY",
-            bRText: "8012年了还屙"
+            choiceText: ["EVANS多少分啊吵", "这歌真好听，osu里的"],
+            img: ["", ""],
+            choiceRText: ["KONMAI QUALITY", "8012年了还屙"]
         }
     ];
     var resultText = "这么喜欢龙图，你应该加入ZACA音游组本质龙图群。群号1145141919810";
@@ -279,6 +288,7 @@
         */
         container.addMessage(new messageBox(a, "l"));
         container.showMessage("l", 0, 0, 0);
+        $("#input-box2").fadeOut(1000);
         $("#input-box").fadeOut(1000, 
             function()
             {
@@ -286,22 +296,22 @@
             }
         );
     }
-    function quiz(b, i, j)
+    function quiz(b, x, y)
     {
         /*
             quiz: 测试题队列
                 测试题的组织方式:
                 {
                     qText: 题干文本
-                    aText: A选项文本
-                    bText: B选项文本
-                    aImg: A选项配图url
-                    bImg: B选项配图url
-                    aRtext: A选项选择后的回复文本
-                    bRtext: B选项选择后的回复文本
+                    choiceText[]: 选项文本
+                    img[]: 选项配图
+                    choiceRText[]: 选项选择后的回复文本
                 }
+            x: 展示测试题的起点下标
+            y: 终点下标
+            **测试题的连续抛出通过递归实现**
         */
-        if(i > j)
+        if(x > y)
         {
             setTimeout(
                 function()
@@ -311,21 +321,68 @@
             )
             return;
         }
-        var a = b[i];
+        var a = b[x];
         var _this = this;
         console.log(_this);
-        var text = a.qText + "<br/>A. " + a.aText + "<br/>B. " + a.bText;
-        var quiz = new messageBox(text, "l");
-        container.addMessage(quiz, "l");
+        console.log(a);
+        if(a.choiceText.length == 3)
+        {
+            $("#input-box2").hide();
+            $("#input-box").fadeIn();
+        }
+        else
+        {
+            $("#input-box").hide();
+            $("#input-box2").fadeIn();
+        }
+        container.addMessage(new messageBox(a.qText, "l"), "l");
         container.showMessage("l", 0, 0, 0);
-        $("#choiceImage-a").css({"background-image": "url(" + a.aImg + ")"});
-        $("#choiceImage-b").css({"background-image": "url(" + a.bImg + ")"});
-        $("#choice-a").click(
+        for(var i = 0; i < a.choiceText.length; i++)
+        {
+            parseChoice(i, a.choiceText[i], a.img[i]);
+        }
+        container.showMessage("l", 0, a.choiceText.length - 1, 500, 
             function()
             {
-                container.addMessage(new messageBox("A选项", "r"));
+                for(var i = 0; i < a.choiceText.length; i++)
+                {
+                    bindChoice(i, a.choiceRText[i], _this.quiz, b, x, y);
+                }
+            }
+        );
+    }
+    function parseChoice(o, text, img)
+    {
+        /*
+            o: 指名该选项为A/B/C(0/1/2)
+            text: 选项文本
+            img: 选项配图路径
+        */
+        var lowerEnum = ['a', 'b', 'c'];
+        var upperEnum = ['A', 'B', 'C'];
+        var lOrder = lowerEnum[o];
+        var uOrder = upperEnum[o];
+        container.addMessage(new messageBox(uOrder + ". " + text, "l"), "l");
+        $(".choiceImage-" + lOrder).css({"background-image": "url(" + img + ")"});
+    }
+    function bindChoice(o, rText, callback, b, x, y)
+    {
+        /*
+            o: 指名该选项为A/B/C(0/1/2)
+            rText: 选项选择后的回复文本
+            callback: 请传入quiz()
+            b, x, y: 
+        */
+        var lowerEnum = ['a', 'b', 'c'];
+        var upperEnum = ['A', 'B', 'C'];
+        var lOrder = lowerEnum[o];
+        var uOrder = upperEnum[o];
+        $(".choice-" + lOrder).click(
+            function()
+            {
+                container.addMessage(new messageBox(uOrder + "选项", "r"));
                 container.showMessage("r", 0, 0, 0);
-                container.addMessage(new messageBox(a.aRText, "l"));
+                container.addMessage(new messageBox(rText, "l"));
                 setTimeout(
                     function()
                     {
@@ -336,32 +393,11 @@
                 setTimeout(
                     function()
                     {
-                        _this.quiz(b, i + 1, j);
+                        callback(b, x + 1, y);
                     }, 2000
                 );
             }
         );
-        $("#choice-b").click(
-            function()
-            {
-                container.addMessage(new messageBox("B选项", "r"));
-                container.showMessage("r", 0, 0, 0);
-                container.addMessage(new messageBox(a.bRText, "l"));
-                setTimeout(
-                    function()
-                    {
-                        container.showMessage("l", 0, 0, 0);
-                    }, 1000
-                );
-                $(".choice-btn").unbind("click");
-                setTimeout(
-                    function()
-                    {
-                        _this.quiz(b, i + 1, j);
-                    }, 2000
-                );
-            }
-        )
     }
     window.onload = function()
     {
@@ -369,7 +405,6 @@
             function()
             {
                 $("#start-btn").hide();
-                $("#input-box").fadeIn();
                 quiz(testQuiz, 0, 2);
             }
         );
