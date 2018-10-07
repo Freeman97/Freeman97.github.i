@@ -22,6 +22,58 @@ container.prototype.addMessage = function(m)
     }
 }
 
+container.prototype.lMessageAnimate = function(el, t, callback, scrollDown)
+{
+    /*
+        动画的实现目标：icon出现（无过渡），text出现（不透明度过渡为1，用时1秒）
+        因为左右message-box元素嵌套情况不太一样，所以分开实现
+        el: l-box或者r-box的jQuery对象
+        callback: 回调函数
+        scrollDown: 滚轮需要自动向下滑动的高度
+    */
+    var _this = this;
+    setTimeout(
+        function()
+        {
+            el.show(0, 
+                function()
+                {
+                    _this.el.scrollTop(_this.el[0].scrollHeight);
+                    $(el.children()[0]).animate({"opacity": 1}, 400);
+                    $(el.children()[1]).animate({"opacity": 1}, 700, "swing",
+                        function()
+                        {
+                            if(typeof callback == "function")
+                            {
+                                callback();
+                            }
+                        }
+                    );
+                }
+            );
+        }, t
+    );
+}
+
+container.prototype.rMessageAnimate = function(el, t)
+{
+    var _this = this;
+    console.log([el, t]);
+    setTimeout(
+        function()
+        {
+            el.show(0,
+                function()
+                {
+                    _this.el.scrollTop(_this.el[0].scrollHeight);
+                    $(el.children()[1]).animate({"opacity": 1}, 400);
+                    $(el.children().children()[0]).animate({"opacity": 1}, 700);
+                }
+            )
+        }, t
+    )
+}
+
 container.prototype.showMessage = function(pos, a, b, dt, callback)
 {
     /*
@@ -44,6 +96,7 @@ container.prototype.showMessage = function(pos, a, b, dt, callback)
     }
     var text, appendStr;
     var _this = this;
+    console.log(_this);
     if(pos == "r")
     {
         for(var i = a; i <= b; i++)
@@ -57,13 +110,7 @@ container.prototype.showMessage = function(pos, a, b, dt, callback)
         {
             var timer = dt * (n - i);
             // console.log([temp, i, timer]);
-            rMessageAnimate(temp, timer);
-            setTimeout(
-                function()
-                {
-                    _this.el.scrollTop(_this.el[0].scrollHeight);
-                }, 200
-            );
+            _this.rMessageAnimate(temp, timer);
             temp = temp.prev();
         }
         _this.rMessage.splice(a, n);
@@ -84,18 +131,12 @@ container.prototype.showMessage = function(pos, a, b, dt, callback)
             // console.log([temp, i, timer]);
             if(i == 0)
             {
-                lMessageAnimate(temp, timer, callback);
+                _this.lMessageAnimate(temp, timer, callback);
             }
             else
             {
-                lMessageAnimate(temp, timer);
+                _this.lMessageAnimate(temp, timer);
             }
-            setTimeout(
-                function()
-                {
-                    _this.el.scrollTop(_this.el[0].scrollHeight);
-                }, 200
-            );
             temp = temp.prev();
         }
         _this.lMessage.splice(a, b - a + 1);
@@ -111,41 +152,4 @@ function messageBox(text, pos)
     */
     this.text = text;
     this.pos = pos;
-}
-
-function lMessageAnimate(el, t, callback)
-{
-    /*
-        动画的实现目标：icon出现（无过渡），text出现（不透明度过渡为1，用时1秒）
-        因为左右message-box元素嵌套情况不太一样，所以分开实现
-        el: l-box或者r-box的jQuery对象
-        callback: 回调函数
-    */
-    setTimeout(
-        function()
-        {
-            $(el.children()[0]).animate({"opacity": 1}, 400);
-            $(el.children()[1]).animate({"opacity": 1}, 700, "swing",
-                function()
-                {
-                    if(typeof callback == "function")
-                    {
-                        callback();
-                    }
-                }
-            );
-        }, t
-    );
-}
-
-function rMessageAnimate(el, t)
-{
-    console.log([el, t]);
-    setTimeout(
-        function()
-        {
-            $(el.children()[1]).animate({"opacity": 1}, 400);
-            $(el.children().children()[0]).animate({"opacity": 1}, 700);
-        }, t
-    )
 }
