@@ -138,10 +138,10 @@ body
 #start-btn, #more-btn
 {
     display: none;
-    width: 40vw;
-    height: 15.67vw;
+    width: 25vw;
+    height: 9.67vw;
     margin-top: 5%;
-    margin-left: 30vw;
+    margin-left: 37.5vw;
     background-image: url("../image/choicebutton@2x.png");
     background-position: center;
     background-size: cover;
@@ -222,4 +222,8 @@ body
     left: 10%;
     border: none;
     display: none
+}
+.outer-container, .list-container
+{
+    display: none;
 }

@@ -16,13 +16,13 @@ var testQuiz = [
     {
         qText: ["好嘞！梯仔已经知道啦！", "让我们来进入正题吧～", "在华工的校园中，清风拂面，艳阳高照，你感到微微有些口渴。","“好想来一杯冰镇奶茶啊！” ", "这样想着，你走入了木棉咖啡厅…", "旁边的华工图书馆（滑稽）。此时在你面前浮现了两幅画，这两幅你更喜欢哪一幅呢？"],
         choiceText: ["", ""],
-        img: ["./image/A.jpg", "./image/B.jpg"],
+        img: ["./image/1.jpg", "./image/2.jpg"],
         choiceRText: ["", ""]
     },
     {
         qText: ["从图书馆出来", "抬眼望去是湛蓝色的天空，挂着白云", "映照在不远处的湖面上。", "湖边的几位华工学子吸引了你的视线", "他们在…"],
         choiceText: ["坐在湖边安静地读书", "热闹地坐在湖边玩狼人杀", "一起乐跑"],
-        img: ["", "", ""],
+        img: ["./image/3.jpg", "./image/4.jpg", "./image/5.jpg"],
         choiceRText: ["", "", ""]
     },
     {
@@ -34,7 +34,7 @@ var testQuiz = [
     {
         qText: ["登上了百步梯，你找到了一块阴凉的树荫", "在习习的凉风下，你逐渐进入梦乡", "在梦中浮现了一个图标，你认为它是…"],
         choiceText: ["", "", ""],
-        img: ["", "", ""],
+        img: ["./image/6.jpg", "./image/7.jpg", "./image/8.jpg"],
         choiceRText: ["", "", ""]
     }
 ];
@@ -42,10 +42,18 @@ var resultText = ["测试完成啦！（鼓掌", "梯仔正在飞速运算中…
 var el = $("#chat-container");
 var container = new container(el, 10);
 var list;
-function showMore()
+function imagePreload()
 {
-    $("#cover").fadeIn()
-    $(".more-page").fadeIn();
+    for(var i = 1; i <= 9; i++)
+    {
+        var preloader = new Image();
+        preloader.src = "./image/" + i + ".jpg";
+    }
+}
+function showMore(n)
+{
+    $("#outer-container" + n).fadeIn();
+    $("#container" + n).fadeIn();
 }
 function chooseResult(a, set)
 {
@@ -139,16 +147,6 @@ function quiz(b, x, y)
     var _this = this;
     console.log(_this);
     console.log(a);
-    if(a.choiceText.length == 3)
-    {
-        $("#input-box2").hide();
-        $("#input-box").fadeIn();
-    }
-    else
-    {
-        $("#input-box").hide();
-        $("#input-box2").fadeIn();
-    }
     for(var i = 0; i < a.qText.length; i++)
     {
         container.addMessage(new messageBox(a.qText[i], "l"), "l");
@@ -163,6 +161,16 @@ function quiz(b, x, y)
             container.showMessage("l", 0, a.choiceText.length - 1, 500, 
                 function()
                 {
+                    if(a.choiceText.length == 3)
+                    {
+                        $("#input-box2").hide();
+                        $("#input-box").fadeIn();
+                    }
+                    else
+                    {
+                        $("#input-box").hide();
+                        $("#input-box2").fadeIn();
+                    }
                     for(var i = 0; i < a.choiceText.length; i++)
                     {
                         bindChoice(i, a.choiceRText[i], _this.quiz, b, x, y);
@@ -187,6 +195,14 @@ function parseChoice(o, text, img)
     {
         container.addMessage(new messageBox(uOrder + ". " + text, "l"), "l");
     }
+    if(img != "")   
+    {
+        $(".choiceImage-" + lOrder).css({"min-height": "70%"});
+    }
+    else
+    {
+        $(".choiceImage-" + lOrder).css({"min-height": "20%"});
+    }
     $(".choiceImage-" + lOrder).css({"background-image": "url(" + img + ")"});
 }
 function bindChoice(o, rText, callback, b, x, y)
@@ -204,6 +220,8 @@ function bindChoice(o, rText, callback, b, x, y)
     $(".choice-" + lOrder).click(
         function()
         {
+            $("#input-box").fadeOut();
+            $("#input-box2").fadeOut();
             recorder.push(o);
             container.addMessage(new messageBox(uOrder + "选项", "r"));
             container.showMessage("r", 0, 0, 0);
@@ -222,7 +240,7 @@ function bindChoice(o, rText, callback, b, x, y)
                 function()
                 {
                     callback(b, x + 1, y);
-                }, 2000
+                }, 1000
             );
         }
     );
@@ -265,8 +283,10 @@ $(document).ready(
 );
 window.onload = function()
 {
-    
-    list = new listContainer($("#container1"), society);
+    imagePreload();
+    list1 = new listContainer($("#container1"), $("#outer-container1"), academic);
+    list2 = new listContainer($("#container2"), $("#outer-container2"), entertainment);
+    list3 = new listContainer($("#container3"), $("#outer-container3"), society);
     $("#start-btn").click(
         function()
         {
@@ -278,7 +298,7 @@ window.onload = function()
         function()
         {
             var moreMessage = [];
-            var moreText = ["<a>点击了解【学术实践类】</a>", "<a>点击了解【文娱体育类】</a>", "<a href='./iframe/socialServiceSouth.html' target='more-page' onclick='showMore()'>点击了解【社会服务类】</a>"];
+            var moreText = ["<a onclick='showMore(1)'>点击了解【学术实践类】</a>", "<a onclick='showMore(2)'>点击了解【文娱体育类】</a>", "<a onclick='showMore(3)'>点击了解【社会服务类】</a>"];
             for(var i = 0; i < moreText.length; i++)
             {
                 moreMessage[i] = new messageBox(moreText[i], "l");
