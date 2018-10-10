@@ -1,0 +1,82 @@
+.list-container
+{
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    top: 10%;
+    left: 10%;
+    z-index: 12;
+    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5vw;
+}
+
+.list-node
+{
+    width: 100%;
+}
+
+.list-page
+{
+    display: none;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5vw;
+}
+
+.page-title:before{
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.page-title
+{
+    width: 80%;
+    height: 8%;
+    margin-top: 10%;
+    margin-left: 10%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pTitle-text
+{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 3%;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url("../image/choicebutton.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.page-content
+{
+    width: 80%;
+    height: 60%;
+    margin-left: 10%;
+    background-color: rgb(249, 227, 165);
+    border-radius: 4%;
+}
+
+.back-btn
+{
+    width: 30%;
+    height: 7%;
+    margin-left: 35%;
+    background-image: url("../image/choicebutton.png");
+    background-size: contain;
+    background-position: center;
+    border-radius: 2.5vw;
+    margin-top: 10%;
+    border: 0;
+}

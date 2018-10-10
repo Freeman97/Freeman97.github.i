@@ -7,7 +7,7 @@ var
     http = require('http');
 
 // 从命令行参数获取root目录，默认是当前目录:
-var root = path.resolve(process.argv[2] || './public');
+var root = path.resolve(process.argv[2] || './');
 
 console.log('Static root dir: ' + root);
 

@@ -31,7 +31,7 @@ body
     width: 100%;
     margin: 0;
     height: 100%;
-    background-image: url("./image/1-01-compressed.jpg");
+    background-image: url("../image/1-01-compressed.jpg");
     background-position: center;
     background-size: cover;
 }
@@ -126,7 +126,7 @@ body
 .l-icon
 {
     margin-left: 2vw;
-    background-image: url("./image/doy.png");
+    background-image: url("../image/doy.png");
     background-position: center;
     background-size: cover;
 }
@@ -142,7 +142,7 @@ body
     height: 15.67vw;
     margin-top: 5%;
     margin-left: 30vw;
-    background-image: url("./image/choicebutton@2x.png");
+    background-image: url("../image/choicebutton@2x.png");
     background-position: center;
     background-size: cover;
     border: none;
@@ -193,7 +193,7 @@ body
     margin-left: 5vw;
     width: 20vw;
     height: 7.84vw;
-    background-image: url("./image/choicebutton.png");
+    background-image: url("../image/choicebutton.png");
     background-position: center;
     background-size: cover;
     display: inline-block;

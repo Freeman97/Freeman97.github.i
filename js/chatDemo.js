@@ -99,6 +99,11 @@ container.prototype.showMessage = function(pos, a, b, dt, callback)
     console.log(_this);
     if(pos == "r")
     {
+        if(_this.rMessage.length == 0)
+        {
+            callback();
+            return;
+        }
         for(var i = a; i <= b; i++)
         {
             text = _this.rMessage[i].text;
@@ -117,6 +122,11 @@ container.prototype.showMessage = function(pos, a, b, dt, callback)
     }
     else
     {
+        if(_this.lMessage.length == 0)
+        {
+            callback();
+            return;
+        }
         for(var i = a; i <= b; i++)
         {
             console.log([_this.lMessage[i], i]);
