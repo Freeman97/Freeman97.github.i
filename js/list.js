@@ -31,7 +31,7 @@ listContainer.prototype.addListNode = function(a)
         a: data中内容
     */
     var _this = this;
-    console.log(this);
+    // console.log(this);
     var listBox = $("<div class='list-box'></div>");
     var listContent = $("<p class='list-node'>" + a.name + "</p>");
     listBox.append(listContent);

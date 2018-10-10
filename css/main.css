@@ -1,7 +1,7 @@
 @font-face
 {
     font-family: "hxbmeixin";
-    src: url("./font.ttf");
+    src: url("./font.ttf") format('truetype');
 }
 *
 {

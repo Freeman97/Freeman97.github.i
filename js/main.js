@@ -5,6 +5,8 @@ var result = [];
 var society;
 var entertainment;
 var academic;
+var map;
+var all;
 var introText = ["在吗？", "我是百步梯梯仔", "有关校园生活的问题，都可以问我哦~", "最近百团大战快要开始了", "你有想好要加入哪个社团吗？", "让我来帮你看看吧！"];
 var testQuiz = [
     {
@@ -42,13 +44,30 @@ var resultText = ["测试完成啦！（鼓掌", "梯仔正在飞速运算中…
 var el = $("#chat-container");
 var container = new container(el, 10);
 var list;
-function imagePreload()
+function verify(name)
 {
-    for(var i = 1; i <= 9; i++)
+    for(var i = 0; i < society.length; i++)
     {
-        var preloader = new Image();
-        preloader.src = "./image/" + i + ".jpg";
+        if(name == society[i].name)
+        {
+            return society[i];
+        }
     }
+    for(var i = 0; i < academic.length; i++)
+    {
+        if(name == academic[i].name)
+        {
+            return academic[i];
+        }
+    }
+    for(var i = 0; i < entertainment.length; i++)
+    {
+        if(name == entertainment[i].name)
+        {
+            return entertainment[i];
+        }
+    }
+    return -1;
 }
 function showMore(n)
 {
@@ -60,24 +79,43 @@ function chooseResult(a, set)
     /*
         set[]: 作为随机使用的集合数组，按选项顺序填入需要的集合
     */
+    console.log(set);
     switch(a)
     {
         case 0:
         {
-            var b = Math.floor(Math.random() * set[0].length);
-            result.push(set[0][b]);
-            break;
+            var b = set[0][Math.floor(Math.random() * set[0].length)];
+            var c;
+            while((c = verify(b)) == -1)
+            {
+                b = set[0][Math.floor(Math.random() * set[0].length)];
+            }
+            console.log(c);
+            result.push(c);
+            break; 
         }
         case 1:
         {
-            var b = Math.floor(Math.random() * set[1].length);
-            result.push(set[1][b]);
+            var b = set[1][Math.floor(Math.random() * set[1].length)];
+            var c;
+            while((c = verify(b)) == -1)
+            {
+                b = set[1][Math.floor(Math.random() * set[1].length)];
+            }
+            console.log(c);
+            result.push(c);
             break;
         }
         case 2:
         {
-            var b = Math.floor(Math.random() * set[2].length);
-            result.push(set[2][b]);
+            var b = set[2][Math.floor(Math.random() * set[2].length)];
+            var c;
+            while((c = verify(b)) == -1)
+            {
+                b = set[2][Math.floor(Math.random() * set[2].length)];
+            }
+            console.log(c);
+            result.push(c);
             break;
         }
     }
@@ -87,14 +125,14 @@ function showResult()
     /*
         a: 测试结果分析文本
     */
+    console.log(recorder);
     for(var i = 0; i < resultText.length; i++)
     {
         container.addMessage(new messageBox(resultText[i], "l"));
     }
-    for(var i = recorder.length - 1; i >= 2; i--)
-    {
-        chooseResult(recorder[i], [society, entertainment, academic]);
-    }
+    chooseResult(recorder[2], [map[0], map[1], map[2]]);
+    chooseResult(recorder[3], [map[3], map[4], map[5]]);
+    chooseResult(recorder[4], [map[6], map[7], map[8]]);
     for(var i = 0; i < result.length; i++)
     {
         container.addMessage(new messageBox(result[i].name, "l"));
@@ -279,11 +317,20 @@ $(document).ready(
                 }
             }
         );
+        $.ajax(
+            {
+                url: 'js/map.json',
+                async: false,
+                success: function(data)
+                {
+                    map = data;
+                }
+            }
+        );
     }
 );
 window.onload = function()
 {
-    imagePreload();
     list1 = new listContainer($("#container1"), $("#outer-container1"), academic);
     list2 = new listContainer($("#container2"), $("#outer-container2"), entertainment);
     list3 = new listContainer($("#container3"), $("#outer-container3"), society);
