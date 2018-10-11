@@ -7,6 +7,7 @@ var entertainment;
 var academic;
 var map;
 var all;
+var preload = ["./image/1.jpg", "./image/2.jpg", "./image/3.jpg", "./image/4.jpg", "./image/5.jpg", "./image/6.jpg", "./image/7.jpg", "./image/8.jpg", "./image/9.jpg"];
 var introText = ["在吗？", "我是百步梯梯仔", "有关校园生活的问题，都可以问我哦~", "最近百团大战快要开始了", "你有想好要加入哪个社团吗？", "让我来帮你看看吧！"];
 var testQuiz = [
     {
@@ -44,6 +45,14 @@ var resultText = ["测试完成啦！（鼓掌", "梯仔正在飞速运算中…
 var el = $("#chat-container");
 var container = new container(el, 10);
 var list;
+function preloadImg(a)
+{
+    for(var i = 0; i < a.length; i++)
+    {
+        $("#preloader-box").append("<div></div>");
+        $("#preloader-box").children().last().css({"background-image": "url(" + a[i] + ")"});
+    }
+}
 function verify(name)
 {
     for(var i = 0; i < society.length; i++)
@@ -149,6 +158,7 @@ function showResult()
                         function()
                         {
                             $("#more-btn").fadeIn(1000);
+                            $("#support").fadeIn(1000);
                         }
                     );
                 }
@@ -331,6 +341,7 @@ $(document).ready(
 );
 window.onload = function()
 {
+    preloadImg(preload);
     list1 = new listContainer($("#container1"), $("#outer-container1"), academic);
     list2 = new listContainer($("#container2"), $("#outer-container2"), entertainment);
     list3 = new listContainer($("#container3"), $("#outer-container3"), society);

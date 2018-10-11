@@ -227,3 +227,20 @@ body
 {
     display: none;
 }
+#support
+{
+    display: none;
+    width: 100%;
+    font-size: 0.5em;
+    color: white;
+    position: absolute;
+    bottom: 0%;
+    text-align: center;
+}
+#preloader-box
+{
+    position: absolute;
+    opacity: 0;
+    z-index: -100;
+    left: -10000px;
+}
