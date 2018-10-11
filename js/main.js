@@ -148,7 +148,7 @@ function showResult()
         container.addMessage(new messageBox(result[i].intro, "l"));
     }
     container.addMessage(new messageBox("还有更多信息可以了解哦!", "l"));
-    container.showMessage("l", 0, resultText.length - 1, 500, 
+    container.showMessage("l", 0, resultText.length, 500, 
         function()
         {
             container.showMessage("l", 0, 5, 2000, 
