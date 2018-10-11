@@ -17,7 +17,7 @@ var testQuiz = [
         choiceRText: ["这位英俊的小伙子你好哟", "这位美丽的小姐姐你好哟", "哦？这位盆友，你很有思想喔（滑稽）"]
     },
     {
-        qText: ["好嘞！梯仔已经知道啦！", "让我们来进入正题吧～", "在华工的校园中，清风拂面，艳阳高照，你感到微微有些口渴。","“好想来一杯冰镇奶茶啊！” ", "这样想着，你走入了木棉咖啡厅…", "旁边的华工图书馆（滑稽）。此时在你面前浮现了两幅画，这两幅你更喜欢哪一幅呢？"],
+        qText: ["好嘞！我已经知道啦！", "让我们来进入正题吧～", "在华工的校园中，清风拂面，艳阳高照，你感到微微有些口渴。","“好想来一杯冰镇奶茶啊！” ", "这样想着，你走入了木棉咖啡厅…", "旁边的华工图书馆（滑稽）。此时在你面前浮现了两幅画，这两幅你更喜欢哪一幅呢？"],
         choiceText: ["", ""],
         img: ["./image/1.jpg", "./image/2.jpg"],
         choiceRText: ["", ""]
@@ -41,7 +41,7 @@ var testQuiz = [
         choiceRText: ["", "", ""]
     }
 ];
-var resultText = ["测试完成啦！（鼓掌", "梯仔正在飞速运算中…", "loading", "loading…", "loading……", "叮！", "经过测试，梯仔认为以下社团比较适合你啦"];
+var resultText = ["测试完成啦！（鼓掌", "系统正在飞速运算中…", "loading", "loading…", "loading……", "叮！", "经过测试，梯仔认为以下社团比较适合你啦"];
 var el = $("#chat-container");
 var container = new container(el, 10);
 var list;
@@ -147,10 +147,11 @@ function showResult()
         container.addMessage(new messageBox(result[i].name, "l"));
         container.addMessage(new messageBox(result[i].intro, "l"));
     }
+    container.addMessage(new messageBox("还有更多信息可以了解哦!", "l"));
     container.showMessage("l", 0, resultText.length - 1, 500, 
         function()
         {
-            container.showMessage("l", 0, 5, 3000, 
+            container.showMessage("l", 0, 5, 2000, 
             function()
                 {
                     $("#input-box2").fadeOut(1000);
@@ -349,6 +350,7 @@ window.onload = function()
         function()
         {
             $("#start-btn").hide();
+            $("#more-btn").hide();
             quiz(testQuiz, 0, testQuiz.length - 1);
         }
     );
@@ -365,7 +367,6 @@ window.onload = function()
             }
             console.log(container.lMessage);
             container.showMessage("l", 0, 2, 500);
-            $("#more-btn").unbind("click");
         }
     )
     $("#cover").click(
@@ -386,6 +387,7 @@ window.onload = function()
         function()
         {
             $("#start-btn").fadeIn(1000);
+            $("#more-btn").fadeIn(1000);
         }
     );
 }
