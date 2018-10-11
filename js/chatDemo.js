@@ -107,7 +107,7 @@ container.prototype.showMessage = function(pos, a, b, dt, callback)
         for(var i = a; i <= b; i++)
         {
             text = _this.rMessage[i].text;
-            appendStr = "<div class='" + pos + "-box'><div class='" + pos + "-box2'><p class='" + pos + "-message'>" + text + "</p></div><div class='" + pos  + "-icon'></div></div>";
+            appendStr = "<div class='" + pos + "-box'><div class='" + pos + "-box2'><p class='" + pos + "-message'>" + text + "</p></div></div>";
             _this.el.append(appendStr);
         }
         var temp = $("div.r-box:last");

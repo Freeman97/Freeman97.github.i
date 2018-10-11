@@ -58,6 +58,7 @@ body
     margin: 0;
     display: inline-block;
     vertical-align: middle;
+    z-index: 10;
 }
 #chat-container
 {
@@ -81,7 +82,7 @@ body
 .r-box2
 {
     width: 50vw;
-    margin-left: 30vw;
+    margin-left: 45vw;
     margin-right: 0;
     display: inline-block;
 }
@@ -114,7 +115,7 @@ body
     padding: 3vw;
     border-radius: 2vw;
 }
-.l-icon, .r-icon
+.l-icon
 {
     opacity: 0;
     width: 15vw;
@@ -122,18 +123,12 @@ body
     display: inline-block;
     vertical-align: top;
     margin-top: 0;
+    border-radius: 50%;
 }
 .l-icon
 {
     margin-left: 2vw;
-    background-image: url("../image/doy.png");
-    background-position: center;
-    background-size: cover;
-}
-.r-icon
-{
-    margin-left: 2vw;
-    background-image: url("../image/doy.png");
+    background-image: url("../image/l-icon.jpg");
     background-position: center;
     background-size: cover;
 }

@@ -41,7 +41,7 @@ var testQuiz = [
         choiceRText: ["", "", ""]
     }
 ];
-var resultText = ["测试完成啦！（鼓掌", "系统正在飞速运算中…", "loading", "loading…", "loading……", "叮！", "经过测试，梯仔认为以下社团比较适合你啦"];
+var resultText = ["测试完成啦！（鼓掌", "系统正在飞速运算中…", "loading", "loading…", "loading……", "叮！", "经过测试，以下社团比较适合你哦~"];
 var el = $("#chat-container");
 var container = new container(el, 10);
 var list;
