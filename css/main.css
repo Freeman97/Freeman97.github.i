@@ -133,7 +133,9 @@ body
 .r-icon
 {
     margin-left: 2vw;
-    background-color: azure;
+    background-image: url("../image/doy.png");
+    background-position: center;
+    background-size: cover;
 }
 #start-btn, #more-btn
 {

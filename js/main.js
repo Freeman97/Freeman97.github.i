@@ -8,7 +8,7 @@ var academic;
 var map;
 var all;
 var preload = ["./image/1.jpg", "./image/2.jpg", "./image/3.jpg", "./image/4.jpg", "./image/5.jpg", "./image/6.jpg", "./image/7.jpg", "./image/8.jpg", "./image/9.jpg"];
-var introText = ["在吗？", "我是百步梯梯仔", "有关校园生活的问题，都可以问我哦~", "最近百团大战快要开始了", "你有想好要加入哪个社团吗？", "让我来帮你看看吧！"];
+var introText = ["在吗？", "你一定听说过百团大战了吧~", "最近百团大战快要开始了", "你有想好要加入哪个社团吗？", "让我来帮你看看吧！"];
 var testQuiz = [
     {
         qText: ["在开始帮你挑选社团之前，先告诉梯仔你的性别吧😉"],
