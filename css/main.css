@@ -68,9 +68,16 @@ body
 }
 #input-box, #input-box2
 {
+    z-index: 13;
+    position: absolute;
+    width: 80%;
+    height: 60%;
+    top: 20%;
+    left: 10%;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5vw;
     display: none;
-    width: 100%;
-    height: 30%;
 }
 .l-box, .r-box
 {
@@ -145,34 +152,6 @@ body
     border: none;
     background-color: transparent;
 }
-.choice-box
-{
-    display: inline-block;
-    width: 30%;
-    height: 80%;
-}
-#choiceBox-a
-{
-    margin-left: 2.5%;
-}
-#choiceBox-c
-{
-    float: right;
-    margin-right: 2.5%;
-}
-#choiceBox-b
-{
-    margin-left: 2.5%;
-}
-#choiceBox-a2
-{
-    margin-left: 15%;
-}
-#choiceBox-b2
-{
-    float: right;
-    margin-right: 15%;
-}
 .choiceImage-a, .choiceImage-b, .choiceImage-c
 {
     width: 80%;
@@ -185,29 +164,73 @@ body
     background-position: center;
     background-repeat: no-repeat;
 }
-.choice-btn
-{
-    margin-left: 5vw;
-    width: 20vw;
-    height: 7.84vw;
-    background-image: url("../image/choicebutton.png");
-    background-position: center;
-    background-size: cover;
-    display: inline-block;
-    border: none;
-    background-color: transparent;
-}
-#cover
+.inner-box
 {
     position: absolute;
-    z-index: 9;
-    height: 95%;
-    width: 100%;
-    top: 5%;
-    left: 0;
-    background-color: grey;
-    opacity: 0.7;
-    display: none;
+    width: 80%;
+    margin-left: 10%;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.choice-box
+{
+    width: 80%;
+    margin-left: 10%;
+    background-image: url("../image/choicebutton.png");
+    background-position: center;
+    background-size: 100% 100%;
+    border-radius: 2%;
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    max-height: 30%;
+    overflow: scroll;
+    word-break: break-all;
+}
+.choice-box2
+{
+    width: 80%;
+    margin-left: 10%;
+    background-image: url("../image/choicebutton.png");
+    background-position: center;
+    background-size: 100% 100%;
+    border-radius: 2%;
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    max-height: 40%;
+    overflow: scroll;
+    word-break: break-all;
+}
+#choiceBox-b, #choiceBox-c, #choiceBox-b2
+{
+    margin-top: 10%;
+}
+.choice-box:before
+{
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.choice-box2:before
+{
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.choice-content
+{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 80%;
+    width: 80%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top:3px;
+    margin-bottom: 3px;
 }
 .more-page
 {
@@ -239,4 +262,31 @@ body
     opacity: 0;
     z-index: -100;
     left: -10000px;
+}
+
+#back-box, #front-box
+{
+    display: none;
+    opacity: 0.8;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(249, 227, 165);
+    z-index: 16;
+    background-size: 60% 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 74%;
+    left: 80%;
+    border-radius: 50%;
+}
+
+#back-box
+{
+    background-image: url("../image/back2.png");
+}
+
+#front-box
+{
+    background-image: url("../image/front.png");
 }

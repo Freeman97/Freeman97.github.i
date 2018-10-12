@@ -11,7 +11,7 @@ var preload = ["./image/1.jpg", "./image/2.jpg", "./image/3.jpg", "./image/4.jpg
 var introText = ["在吗？", "你一定听说过百团大战了吧~", "最近百团大战快要开始了", "你有想好要加入哪个社团吗？", "让我来帮你看看吧！"];
 var testQuiz = [
     {
-        qText: ["在开始帮你挑选社团之前，先告诉梯仔你的性别吧😉"],
+        qText: ["在开始帮你挑选社团之前，先告诉我你的性别吧😉"],
         choiceText: ["男", "女", "秘密"],
         img: ["", "", ""],
         choiceRText: ["这位英俊的小伙子你好哟", "这位美丽的小姐姐你好哟", "哦？这位盆友，你很有思想喔（滑稽）"]
@@ -154,6 +154,12 @@ function showResult()
             container.showMessage("l", 0, 5, 2000, 
             function()
                 {
+                    $("#chat-container").animate({"height": "-=20%"}, 700, "swing", 
+                        function()
+                        {
+                            $("#chat-container").scrollTop($("#chat-container")[0].scrollHeight);
+                        }
+                    );
                     $("#input-box2").fadeOut(1000);
                     $("#input-box").fadeOut(1000, 
                         function()
@@ -196,6 +202,44 @@ function quiz(b, x, y)
     var _this = this;
     console.log(_this);
     console.log(a);
+    if(a.choiceText.length == 3)
+    {
+        $("#back-box").unbind("click").click(
+            function()
+            {
+                $("#input-box").fadeOut();
+                $("#back-box").fadeOut();
+                $("#front-box").fadeIn();
+            }
+        );
+        $("#front-box").unbind("click").click(
+            function()
+            {
+                $("#input-box").fadeIn();
+                $("#front-box").fadeOut();
+                $("#back-box").fadeIn();
+            }
+        );
+    }
+    else
+    {
+        $("#back-box").unbind("click").click(
+            function()
+            {
+                $("#input-box2").fadeOut();
+                $("#back-box").fadeOut();
+                $("#front-box").fadeIn();
+            }
+        );
+        $("#front-box").unbind("click").click(
+            function()
+            {
+                $("#input-box2").fadeIn();
+                $("#front-box").fadeOut();
+                $("#back-box").fadeIn();
+            }
+        );
+    }
     for(var i = 0; i < a.qText.length; i++)
     {
         container.addMessage(new messageBox(a.qText[i], "l"), "l");
@@ -210,16 +254,23 @@ function quiz(b, x, y)
             container.showMessage("l", 0, a.choiceText.length - 1, 500, 
                 function()
                 {
-                    if(a.choiceText.length == 3)
-                    {
-                        $("#input-box2").hide();
-                        $("#input-box").fadeIn();
-                    }
-                    else
-                    {
-                        $("#input-box").hide();
-                        $("#input-box2").fadeIn();
-                    }
+                    setTimeout(
+                        function()
+                        {
+                            if(a.choiceText.length == 3)
+                            {
+                                $("#input-box2").hide();
+                                $("#input-box").fadeIn();
+                                $("#back-box").fadeIn();
+                            }
+                            else
+                            {
+                                $("#input-box").hide();
+                                $("#input-box2").fadeIn();
+                                $("#back-box").fadeIn();
+                            }
+                        }, 1000
+                    );
                     for(var i = 0; i < a.choiceText.length; i++)
                     {
                         bindChoice(i, a.choiceRText[i], _this.quiz, b, x, y);
@@ -242,17 +293,26 @@ function parseChoice(o, text, img)
     var uOrder = upperEnum[o];
     if(text != "")
     {
+        $($(".choice-" + lOrder).children()[0]).text(text);
+        $(".choice-content").css({"margin-top": "5%", "margin-bottom": "5%"});
+        $(".choice-" + lOrder).css({"background-image": "url()"});
+        $(".choice-box").css({"height": "auto"});
+        $("#choiceBox-b").css({"margin-top": "10%"});
+        $("#choiceBox-c").css({"margin-top": "10%"});
+        $(".choice-box2").css({"height": "auto"});
+        $("#choiceBox-b2").css({"margin-top": "10%"});
         container.addMessage(new messageBox(uOrder + ". " + text, "l"), "l");
     }
-    if(img != "")   
+    if(img != "")
     {
-        $(".choiceImage-" + lOrder).css({"min-height": "70%"});
+        $($(".choice-" + lOrder).children()[0]).text("");
+        $(".choice-" + lOrder).css({"background-image": "url(" + img + ")"});
+        $(".choice-box").css({"height": $("html")[0].offsetHeight * 0.144 + "px"});
+        $("#choiceBox-b").css({"margin-top": $("html")[0].offsetHeight * 0.024 + "px"});
+        $("#choiceBox-c").css({"margin-top": $("html")[0].offsetHeight * 0.024 + "px"});
+        $(".choice-box2").css({"height": $("html")[0].offsetHeight * 0.216 + "px"});
+        $("#choiceBox-b2").css({"margin-top": $("html")[0].offsetHeight * 0.024 + "px"});
     }
-    else
-    {
-        $(".choiceImage-" + lOrder).css({"min-height": "20%"});
-    }
-    $(".choiceImage-" + lOrder).css({"background-image": "url(" + img + ")"});
 }
 function bindChoice(o, rText, callback, b, x, y)
 {
@@ -266,7 +326,7 @@ function bindChoice(o, rText, callback, b, x, y)
     var upperEnum = ['A', 'B', 'C'];
     var lOrder = lowerEnum[o];
     var uOrder = upperEnum[o];
-    $(".choice-" + lOrder).click(
+    $(".choice-" + lOrder).unbind("click").click(
         function()
         {
             $("#input-box").fadeOut();
@@ -291,6 +351,8 @@ function bindChoice(o, rText, callback, b, x, y)
                     callback(b, x + 1, y);
                 }, 1000
             );
+            $("#back-box").fadeOut();
+            $("#front-box").fadeOut();
         }
     );
 }
@@ -342,6 +404,9 @@ $(document).ready(
 );
 window.onload = function()
 {
+    $(".inner-box").css({"max-height": $("html")[0].offsetHeight * 0.48 + "px"});
+    $(".choice-box").css({"max-height": $("html")[0].offsetHeight * 0.18 + "px"});
+    $(".choice-box2").css({"max-height": $("html")[0].offsetHeight * 0.27 + "px"});
     preloadImg(preload);
     list1 = new listContainer($("#container1"), $("#outer-container1"), academic);
     list2 = new listContainer($("#container2"), $("#outer-container2"), entertainment);
@@ -351,7 +416,13 @@ window.onload = function()
         {
             $("#start-btn").hide();
             $("#more-btn").hide();
-            quiz(testQuiz, 0, testQuiz.length - 1);
+            $("#chat-container").animate({"height": "+=20%"}, 700, "swing");
+            setTimeout(
+                function()
+                {
+                    quiz(testQuiz, 0, testQuiz.length - 1);
+                }, 1000
+            );
         }
     );
     $("#more-btn").click(
