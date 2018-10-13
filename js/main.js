@@ -414,12 +414,14 @@ window.onload = function()
 			isFirst = false;
 			sound = new Audio();
 			sound.loop = true;
+			sound.preload = "auto";
 			document.removeEventListener("touchstart", fixaudio, false);
 			sound.src = "./sound/bgm.mp3";
 			sound.play();
 		}	
     };
 	document.getElementById("start-btn").addEventListener("touchstart", fixaudio, false);
+	document.getElementById("more-btn").addEventListener("touchstart", fixaudio, false);
     $(".inner-box").css({"max-height": $("html")[0].offsetHeight * 0.48 + "px"});
     $(".choice-box").css({"max-height": $("html")[0].offsetHeight * 0.18 + "px"});
     $(".choice-box2").css({"max-height": $("html")[0].offsetHeight * 0.27 + "px"});
