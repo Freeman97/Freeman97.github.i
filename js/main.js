@@ -7,8 +7,19 @@ var entertainment;
 var academic;
 var map;
 var all;
-var sound = document.getElementById("bgm");
-sound.preload = "auto";
+var sound;
+var isFirst = true;
+var fixaudio = function()
+	{
+		if(isFirst)
+		{
+			isFirst = false;
+			sound = new Audio();
+			sound.loop = true;
+			document.removeEventListener("touchstart", fixaudio, false);
+		}	
+    };
+document.addEventListener("touchstart", fixaudio, false);				  
 var preload = ["./image/1.jpg", "./image/2.jpg", "./image/3.jpg", "./image/4.jpg", "./image/5.jpg", "./image/6.jpg", "./image/7.jpg", "./image/8.jpg", "./image/9.jpg"];
 var introText = ["在吗？", "你一定听说过百团大战了吧~", "最近百团大战快要开始了", "你有想好要加入哪个社团吗？", "让我来帮你看看吧！"];
 var testQuiz = [
@@ -407,6 +418,8 @@ $(document).ready(
 );
 window.onload = function()
 {
+	sound.src = "./sound/bgm.mp3";
+	sound.play();
     $(".inner-box").css({"max-height": $("html")[0].offsetHeight * 0.48 + "px"});
     $(".choice-box").css({"max-height": $("html")[0].offsetHeight * 0.18 + "px"});
     $(".choice-box2").css({"max-height": $("html")[0].offsetHeight * 0.27 + "px"});
@@ -419,8 +432,6 @@ window.onload = function()
         {
             $("#start-btn").hide();
             $("#more-btn").hide();
-			sound.pause();
-			sound.play();
             $("#chat-container").animate({"height": "+=20%"}, 700, "swing");
             setTimeout(
                 function()
