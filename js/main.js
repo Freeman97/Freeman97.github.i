@@ -415,11 +415,11 @@ window.onload = function()
 			sound = new Audio();
 			sound.loop = true;
 			document.removeEventListener("touchstart", fixaudio, false);
+			document.addEventListener("touchstart", fixaudio, false);				  
+			sound.src = "./sound/bgm.mp3";
+			sound.play();
 		}	
-    	};
-	document.addEventListener("touchstart", fixaudio, false);				  
-	sound.src = "./sound/bgm.mp3";
-	sound.play();
+    };
     $(".inner-box").css({"max-height": $("html")[0].offsetHeight * 0.48 + "px"});
     $(".choice-box").css({"max-height": $("html")[0].offsetHeight * 0.18 + "px"});
     $(".choice-box2").css({"max-height": $("html")[0].offsetHeight * 0.27 + "px"});
