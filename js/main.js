@@ -415,7 +415,7 @@ window.onload = function()
 			sound = new Audio();
 			sound.loop = true;
 			document.removeEventListener("touchstart", fixaudio, false);
-			document.addEventListener("touchstart", fixaudio, false);				  
+			document.getElementById("#start-btn").addEventListener("touchstart", fixaudio, false);				  
 			sound.src = "./sound/bgm.mp3";
 			sound.play();
 		}	
