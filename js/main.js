@@ -410,7 +410,7 @@ window.onload = function()
 		{
 			url: 'sound/bgm.mp3',
 			async: false,
-			success function(data)
+			success: function(data)
 			{
 				console.log(data);
 				document.getElementById("bgm").setAttribute('src', 'bgm.mp3');
