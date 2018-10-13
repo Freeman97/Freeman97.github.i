@@ -405,7 +405,7 @@ $(document).ready(
 window.onload = function()
 {
 	var sound = document.getElementById("bgm");
-	sound.preload = true;
+	sound.preload = "auto";
     $(".inner-box").css({"max-height": $("html")[0].offsetHeight * 0.48 + "px"});
     $(".choice-box").css({"max-height": $("html")[0].offsetHeight * 0.18 + "px"});
     $(".choice-box2").css({"max-height": $("html")[0].offsetHeight * 0.27 + "px"});
