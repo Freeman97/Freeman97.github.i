@@ -404,6 +404,20 @@ $(document).ready(
 );
 window.onload = function()
 {
+	document.getElementById("bgm").play();
+	document.getElementById("bgm").pause();
+	$.ajax(
+		{
+			url: 'sound/bgm.mp3',
+			async: false,
+			success function(data)
+			{
+				console.log(data);
+				document.getElementById("bgm").setAttribute('src', 'bgm.mp3');
+				document.getElementById("bgm").play();
+			}
+		}
+	)
     $(".inner-box").css({"max-height": $("html")[0].offsetHeight * 0.48 + "px"});
     $(".choice-box").css({"max-height": $("html")[0].offsetHeight * 0.18 + "px"});
     $(".choice-box2").css({"max-height": $("html")[0].offsetHeight * 0.27 + "px"});
