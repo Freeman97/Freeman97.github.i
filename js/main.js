@@ -154,7 +154,7 @@ function showResult()
     container.showMessage("l", 0, resultText.length, 500, 
         function()
         {
-            container.showMessage("l", 0, 5, 2000, 
+            container.showMessage("l", 0, 6, 2000, 
             function()
                 {
                     $("#chat-container").animate({"height": "-=20%"}, 700, "swing", 
