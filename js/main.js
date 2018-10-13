@@ -212,8 +212,8 @@ function quiz(b, x, y)
                 $("#back-box").fadeOut();
                 $("#front-box").fadeIn();
             }
-        $("#front-box").unbind("click").click(
         );
+        $("#front-box").unbind("click").click(
             function()
             {
                 $("#input-box").fadeIn();
