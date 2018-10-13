@@ -7,6 +7,8 @@ var entertainment;
 var academic;
 var map;
 var all;
+var sound = document.getElementById("bgm");
+sound.preload = "auto";
 var preload = ["./image/1.jpg", "./image/2.jpg", "./image/3.jpg", "./image/4.jpg", "./image/5.jpg", "./image/6.jpg", "./image/7.jpg", "./image/8.jpg", "./image/9.jpg"];
 var introText = ["在吗？", "你一定听说过百团大战了吧~", "最近百团大战快要开始了", "你有想好要加入哪个社团吗？", "让我来帮你看看吧！"];
 var testQuiz = [
@@ -148,6 +150,7 @@ function showResult()
         container.addMessage(new messageBox(result[i].intro, "l"));
     }
     container.addMessage(new messageBox("还有更多信息可以了解哦!", "l"));
+	container.addMessage(new messageBox("不分享到朋友圈邀请大家也来玩玩吗？", "l"), "l");
     container.showMessage("l", 0, resultText.length, 500, 
         function()
         {
@@ -404,8 +407,6 @@ $(document).ready(
 );
 window.onload = function()
 {
-	var sound = document.getElementById("bgm");
-	sound.preload = "auto";
     $(".inner-box").css({"max-height": $("html")[0].offsetHeight * 0.48 + "px"});
     $(".choice-box").css({"max-height": $("html")[0].offsetHeight * 0.18 + "px"});
     $(".choice-box2").css({"max-height": $("html")[0].offsetHeight * 0.27 + "px"});
